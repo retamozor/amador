@@ -30,7 +30,8 @@ class Preloader extends Scene {
 		this.load.spritesheet("player", "sprites/QIPsul.png", {
 			frameWidth: 16
 	 	});
-
+		this.load.tilemapTiledJSON("map", "maps/amador-tilemap.json");
+		this.load.image("tiles", "maps/JUGUETERIA PIXEL ART.png");
 	}
 
 	create() {

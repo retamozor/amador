@@ -6,6 +6,12 @@ class Controls {
 	constructor(scene: Phaser.Scene) {
 		this.scene = scene;
 		this.cursors = scene.input.keyboard?.createCursorKeys();
+		scene.events.on(Phaser.Scenes.Events.PAUSE, () =>
+			scene.input.keyboard?.disableGlobalCapture(),
+		);
+		scene.events.on(Phaser.Scenes.Events.RESUME, () =>
+			scene.input.keyboard?.enableGlobalCapture(),
+		);
 
 		this.scene.input.gamepad?.once(
 			"connected",

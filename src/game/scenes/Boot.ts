@@ -1,14 +1,15 @@
 import { Scene } from "phaser";
+import Scenes from "../constants/Scenes";
 
 class Boot extends Scene {
 	constructor() {
-		super("Boot");
+		super(Scenes.Boot);
 	}
 
 	preload() { }
 
 	create() {
-		this.scene.start("Preloader");
+		this.scene.start(Scenes.Preloader);
 	}
 }
 

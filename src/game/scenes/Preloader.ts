@@ -1,8 +1,14 @@
 import { Scene } from "phaser";
+import Scenes from "../constants/Scenes";
+import Textures from "../constants/Textures";
+
+function getIndex(x: number, y: number) {
+	return x * 3 + y;
+}
 
 class Preloader extends Scene {
 	constructor() {
-		super("Preloader");
+		super(Scenes.Preloader);
 	}
 
 	init() {
@@ -17,9 +23,11 @@ class Preloader extends Scene {
 
 	preload() {
 		this.load.setPath("assets");
-		this.load.image("logo", "logo.png");
-		this.load.image("button_new_game", "button/button.png")
-		this.load.image("button_new_game_pressed", "button/button_pressed.png")
+		this.load.image(Textures.Logo, "logo.png");
+		this.load.image(Textures.Buttons.NewGame.default, "button/button.png")
+		this.load.image(Textures.Buttons.NewGame.pressed, "button/button_pressed.png")
+		this.load.image(Textures.Buttons.Pause.default, "button/stop.png")
+		this.load.image(Textures.Buttons.Pause.pressed, "button/stop_pressed.png")
 		this.load.font({
 			key: "VT323",
 			url: "VT323-Regular.ttf",
@@ -27,15 +35,100 @@ class Preloader extends Scene {
 			descriptors: { style: "normal", weight: 400 },
 		});
 		this.load.audio("bg-loop", "bg-loop_2.mp3")
-		this.load.spritesheet("player", "sprites/QIPsul.png", {
-			frameWidth: 16
+		this.load.spritesheet(Textures.Sprites.Player, "sprites/amador_sprites.png", {
+			frameWidth: 32
 	 	});
-		this.load.tilemapTiledJSON("map", "maps/amador-tilemap.json");
-		this.load.image("tiles", "maps/JUGUETERIA PIXEL ART.png");
+		this.load.tilemapTiledJSON(Textures.Maps.House, "maps/amador-tilemap.json");
+		this.load.image(Textures.Tiles.House, "maps/JUGUETERIA PIXEL ART.png");
 	}
 
 	create() {
-		this.scene.start("MainMenu");
+		this.scene.start(Scenes.MainMenu);
+
+		this.anims.create({
+			key: "wait_down",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [getIndex(0, 0), getIndex(0, 1), getIndex(0, 2)],
+			}),
+			frameRate: 4,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "wait_up",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [getIndex(1, 0), getIndex(1, 1), getIndex(1, 2)],
+			}),
+			frameRate: 4,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "wait_right",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [getIndex(2, 0), getIndex(2, 1), getIndex(2, 2)],
+			}),
+			frameRate: 4,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "wait_left",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [getIndex(3, 0), getIndex(3, 1), getIndex(3, 2)],
+			}),
+			frameRate: 4,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "walk_down",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [
+					getIndex(4, 0),
+					getIndex(4, 1),
+					getIndex(4, 2),
+					getIndex(4, 1),
+				],
+			}),
+			frameRate: 6,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "walk_up",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [
+					getIndex(5, 0),
+					getIndex(5, 1),
+					getIndex(5, 2),
+					getIndex(5, 1),
+				],
+			}),
+			frameRate: 6,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "walk_right",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [
+					getIndex(6, 0),
+					getIndex(6, 1),
+					getIndex(6, 2),
+					getIndex(6, 1),
+				],
+			}),
+			frameRate: 6,
+			repeat: -1,
+		});
+		this.anims.create({
+			key: "walk_left",
+			frames: this.anims.generateFrameNames("player", {
+				frames: [
+					getIndex(7, 0),
+					getIndex(7, 1),
+					getIndex(7, 2),
+					getIndex(7, 1),
+				],
+			}),
+			frameRate: 6,
+			repeat: -1,
+		});
 	}
 }
 

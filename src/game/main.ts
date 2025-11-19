@@ -7,11 +7,15 @@ import GameHUD from "./scenes/GameHUD";
 import GamePause from "./scenes/pause/GamePause";
 import SaveGame from "./scenes/pause/SaveGame";
 import LoadGame from "./scenes/pause/LoadGame";
+import BusScene from "./scenes/BusScene";
+import IntroScene from "./scenes/IntroScene";
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: AUTO,
 	width: 1280,
 	height: 720,
+	// width: 640,
+	// height: 360,
 	parent: "game-container",
 	pixelArt: true,
 	scale: {
@@ -34,6 +38,8 @@ const config: Phaser.Types.Core.GameConfig = {
 		Boot,
 		Preloader,
 		MainMenu,
+		BusScene,
+		IntroScene,
 		GameScene,
 		GameHUD,
 		GamePause,

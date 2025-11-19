@@ -8,7 +8,7 @@ export interface SaveSliceState {
 }
 
 export interface SaveSliceAction {
-	replaceState: (id: string) => void;
+	replaceState: (id: string, name?: string) => void;
 	saveState: (name?: string) => void;
 	loadState: (id: string) => void;
 	getSaveList: () => { id: string; name: string; date: string }[];

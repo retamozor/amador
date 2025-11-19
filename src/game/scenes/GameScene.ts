@@ -15,6 +15,9 @@ class GameScene extends Scene {
 
 	create() {
 		this.map = this.make.tilemap({ key: Textures.Maps.House });
+		this.sound.add('ambient', {
+			loop: true,
+		}).play();
 
 		this.tileset = this.map.addTilesetImage(
 			"JUGUETERIA PIXEL ART",
@@ -71,7 +74,7 @@ class GameScene extends Scene {
 		}
 
 		this.cameras.main.startFollow(this.player);
-		this.cameras.main.setZoom(3);
+		this.cameras.main.setZoom(2);
 		this.cameras.main.setLerp(0.1, 0.1);
 
 		this.scene.launch(Scenes.GameHUD);

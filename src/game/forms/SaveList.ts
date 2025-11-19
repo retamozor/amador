@@ -78,7 +78,7 @@ class SaveList {
 	}
 
 	updateContent() {
-		const saveList = gameStore.getState().getSaveList();
+		const saveList = gameStore.getState().getSaveList().sort((a, b) => moment(b.date).unix() - moment(a.date).unix());
 
 		const fragment = document.createDocumentFragment();
 

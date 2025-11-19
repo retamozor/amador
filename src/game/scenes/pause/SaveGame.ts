@@ -29,29 +29,39 @@ class SaveGame extends Scene {
 		);
 		this.backdrop.setOrigin(0);
 
+		const width = 450;
+		const height = 300;
+		const margin = 10;
+		let xPos = (this.cameras.main.width - width) / 2;
+		let yPos = (this.cameras.main.height - height) / 2;
+
+		const saveNameWidth = ((width - 2 * margin) / 3) * 2 + margin;
 		this.saveName = new FormInput(
 			this,
-			{ x: 300, y: 200, w: 300, h: 30 },
+			{ x: xPos, y: yPos, w: saveNameWidth, h: 30 },
 			{
 				placeholder: "Ingresa un nombre",
 				autofocus: true,
 				onchange: (_e) => {
 					this.saveId = null;
-				}
+				},
 			},
 		);
 
-		this.save = this.add.rectangle(630, 200, 120, 30, 0xc9b78d);
+		xPos += saveNameWidth + margin;
+
+		const saveWidth = (width - 2 * margin) / 3;
+		this.save = this.add.rectangle(xPos, yPos, saveWidth, 30, 0xc9b78d);
 		this.save.setOrigin(0);
 		this.save.setInteractive();
 
 		this.save.on(Phaser.Input.Events.POINTER_DOWN, () => {
 			console.log(this.saveName.value);
 			if (this.saveName.value.trim()) {
-				if(this.saveId === null) {
+				if (this.saveId === null) {
 					gameStore.getState().saveState(this.saveName.value);
 				} else {
-					gameStore.getState().replaceState(this.saveId)
+					gameStore.getState().replaceState(this.saveId);
 				}
 
 				this.scene.wake(Scenes.GamePause);
@@ -59,16 +69,32 @@ class SaveGame extends Scene {
 			}
 		});
 
-		this.saveText = this.add.text(630, 200, "Guardar", {
+		this.saveText = this.add.text(xPos, yPos, "Guardar", {
 			fixedHeight: 30,
-			fixedWidth: 120,
+			fixedWidth: saveWidth,
 			align: "center",
 			padding: {
 				y: 6,
 			},
 		});
 
-		this.cancel = this.add.rectangle(630, 500, 120, 30, 0xc9b78d);
+		xPos = (this.cameras.main.width - width) / 2;
+		yPos += margin + 30;
+
+		const saveListHeight = height - 2 * margin - 2 * 30;
+		this.saveList = new SaveList(
+			this,
+			{ x: xPos, y: yPos, w: width, h: saveListHeight },
+			(id) => {
+				this.saveName.value = gameStore.getState().saves[id].name;
+				this.saveId = id;
+			},
+		);
+
+		xPos += saveNameWidth + margin;
+		yPos += saveListHeight + margin;
+
+		this.cancel = this.add.rectangle(xPos, yPos, saveWidth, 30, 0xc9b78d);
 		this.cancel.setOrigin(0);
 		this.cancel.setInteractive();
 
@@ -77,18 +103,13 @@ class SaveGame extends Scene {
 			this.scene.stop(Scenes.SaveGame);
 		});
 
-		this.cancelText = this.add.text(630, 500, "Cancelar", {
+		this.cancelText = this.add.text(xPos, yPos, "Cancelar", {
 			fixedHeight: 30,
-			fixedWidth: 120,
+			fixedWidth: saveWidth,
 			align: "center",
 			padding: {
 				y: 6,
 			},
-		});
-
-		this.saveList = new SaveList(this, { x: 300, y: 245, w: 450, h: 240 }, id => {
-			this.saveName.value = gameStore.getState().saves[id].name
-			this.saveId = id;
 		});
 	}
 }

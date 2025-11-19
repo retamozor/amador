@@ -23,6 +23,10 @@ body {
 	overflow-y: auto;
 }
 
+input {
+	font-family: VT323, sans-serif;
+}
+
 .save-element {
 	display: flex;
 	flex-wrap: wrap;

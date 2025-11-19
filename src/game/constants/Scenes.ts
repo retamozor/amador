@@ -7,6 +7,8 @@ class Scenes {
 	static GamePause = 'game-pause'
 	static SaveGame = 'save-game'
 	static LoadGame = 'load-game'
+	static BusScene = 'bus-scene'
+	static IntroScene = 'intro-scene'
 }
 
 export default Scenes;

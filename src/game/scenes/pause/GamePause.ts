@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import Scenes from "../../constants/Scenes";
+import gameStore from "../../store/gameStore";
 
 class GamePause extends Scene {
 	backdrop!: Phaser.GameObjects.Rectangle;
@@ -9,6 +10,8 @@ class GamePause extends Scene {
 	saveText!: Phaser.GameObjects.Text;
 	loadBtn!: Phaser.GameObjects.Rectangle;
 	loadText!: Phaser.GameObjects.Text;
+	exitBtn!: Phaser.GameObjects.Rectangle;
+	exitText!: Phaser.GameObjects.Text;
 
 	constructor() {
 		super(Scenes.GamePause);
@@ -26,7 +29,7 @@ class GamePause extends Scene {
 		this.backdrop.setOrigin(0);
 
 		let xPos = this.cameras.main.width / 2;
-		let yPos = 300;
+		let yPos = this.cameras.main.height / 3;
 
 		this.continueBtn = this.add.rectangle(xPos, yPos, 200, 30, 0xc9b78d);
 		this.continueBtn.setOrigin(0.5);
@@ -89,6 +92,31 @@ class GamePause extends Scene {
 			},
 		});
 		this.loadText.setOrigin(0.5);
+
+		yPos += 50;
+
+		this.exitBtn = this.add.rectangle(xPos, yPos, 200, 30, 0xc9b78d);
+		this.exitBtn.setOrigin(0.5);
+		this.exitBtn.setInteractive();
+
+		this.exitBtn.on(Phaser.Input.Events.POINTER_DOWN, () => {
+			gameStore.getState().saveState();
+			this.scene.stop(Scenes.GameScene);
+			this.scene.stop(Scenes.GamePause);
+			this.scene.stop(Scenes.GameHUD);
+			this.scene.start(Scenes.MainMenu);
+			this.sound.pauseAll();
+		});
+
+		this.exitText = this.add.text(xPos, yPos, "Salir", {
+			fixedHeight: 30,
+			fixedWidth: 200,
+			align: "center",
+			padding: {
+				y: 6,
+			},
+		});
+		this.exitText.setOrigin(0.5);
 	}
 }
 

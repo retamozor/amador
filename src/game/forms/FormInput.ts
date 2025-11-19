@@ -71,7 +71,7 @@ class FormInput {
 		this.element.style.width = `${width}px`;
 		this.element.style.height = `${height}px`;
 
-		this.element.style.fontSize = `${14 * scaleY * cam.zoom}px`;
+		this.element.style.fontSize = `${16 * scaleY * cam.zoom}px`;
 	}
 
 	destroy() {

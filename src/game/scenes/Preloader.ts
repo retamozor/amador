@@ -24,17 +24,38 @@ class Preloader extends Scene {
 	preload() {
 		this.load.setPath("assets");
 		this.load.image(Textures.Logo, "logo.png");
+		this.load.image(Textures.MainMenu, "main_menu.png");
+		this.load.image(Textures.BusScene, "bus_scene.png")
+		this.load.image(Textures.AmadorSpeaking, "characters/amador_speaking.png")
+		this.load.image(Textures.Bubble, "characters/bubble.png")
+		this.load.image(Textures.Letter0, "letter_0.png")
+		this.load.image(Textures.Letter1, "letter_1.png")
+		this.load.image(Textures.Letter2, "letter_2.png")
+		this.load.image(Textures.Letter3, "letter_3.png")
+		
+
 		this.load.image(Textures.Buttons.NewGame.default, "button/button.png")
 		this.load.image(Textures.Buttons.NewGame.pressed, "button/button_pressed.png")
 		this.load.image(Textures.Buttons.Pause.default, "button/stop.png")
 		this.load.image(Textures.Buttons.Pause.pressed, "button/stop_pressed.png")
+		this.load.image(Textures.Buttons.Volume.default, "button/volume.png")
+		this.load.image(Textures.Buttons.Volume.pressed, "button/volume_pressed.png")
+		this.load.image(Textures.Buttons.NoVolume.default, "button/no_volume.png")
+		this.load.image(Textures.Buttons.NoVolume.pressed, "button/no_volume_pressed.png")
+		this.load.image(Textures.Buttons.Next.default, "button/next.png")
+		this.load.image(Textures.Buttons.Next.pressed, "button/next_pressed.png")
+
 		this.load.font({
 			key: "VT323",
 			url: "VT323-Regular.ttf",
 			format: "truetype",
 			descriptors: { style: "normal", weight: 400 },
 		});
-		this.load.audio("bg-loop", "bg-loop_2.mp3")
+
+		this.load.audio("bg-loop", "sound/bg-loop.mp3")
+		this.load.audio("on-board-bus", "sound/on_board_bus.mp3")
+		this.load.audio("ambient", "sound/ambient.wav")
+		
 		this.load.spritesheet(Textures.Sprites.Player, "sprites/amador_sprites.png", {
 			frameWidth: 32
 	 	});

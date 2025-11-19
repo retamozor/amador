@@ -6,31 +6,37 @@ import type ActionButton from "../forms/Button";
 const secuence = [
 	{
 		text: "Uy… ¡Hola! seguro se estarán preguntando quién soy yo y qué hago por acá, ¿cierto?",
+		audio: "dialog_0",
 		scene: false,
 		letter: false,
 	},
 	{
 		text: "Pues, me llamo José María Amador, aunque me pueden decir solo Amador.",
+		audio: "dialog_1",
 		scene: false,
 		letter: false,
 	},
 	{
 		text: "Hace un par de semanas me llegó una carta de una tía abuela que ni conocía…",
+		audio: "dialog_2",
 		scene: false,
 		letter: false,
 	},
 	{
 		text: "En ella decía que me había dejado una finca de herencia, allá en Tuluá. El Califa, se llama.",
+		audio: "dialog_3",
 		scene: false,
 		letter: false,
 	},
 	{
 		text: "Querido José María:\n\nSi esta carta llega a tus manos, es porque ha llegado el momento de que conozcas aquello que te pertenece por nombre y por sangre.\nTe dejo en herencia la finca El Califa, un lugar que ha guardado durante años historias que quizá algún día comprenderás. Ojalá te animes a visitarla.\n\nCon cariño,\nTu tía abuela,\nClementina Amador",
+		audio: "letter",
 		scene: false,
 		letter: true,
 	},
 	{
 		text: "",
+		audio: "",
 		scene: true,
 		letter: false,
 	},
@@ -46,6 +52,7 @@ class IntroScene extends Scene {
 	typeEvent: Phaser.Time.TimerEvent | null;
 	nextButton!: ActionButton;
 	letter!: Phaser.GameObjects.Image;
+	dialogAudio: Phaser.Sound.WebAudioSound | null = null;
 
 	constructor() {
 		super(Scenes.IntroScene);
@@ -161,12 +168,25 @@ class IntroScene extends Scene {
 
 		// 2. Si hay cambio de escena
 		if (entry.scene) {
+			if (this.dialogAudio?.isPlaying) {
+				this.dialogAudio.stop();
+				this.dialogAudio.destroy();
+			}
 			this.scene.start(Scenes.GameScene);
 			return;
 		}
 
 		// 3. Mostrar texto normal
 		this.typewrite(entry.text);
+		if (this.dialogAudio?.isPlaying) {
+			this.dialogAudio.stop();
+			this.dialogAudio.destroy();
+		}
+
+		this.dialogAudio = this.sound.add(entry.audio, {
+			pan: -0.2,
+		}) as Phaser.Sound.WebAudioSound;
+		this.dialogAudio.play();
 	}
 
 	// ---------------------------
@@ -183,6 +203,13 @@ class IntroScene extends Scene {
 		});
 		this.time.delayedCall(6000, () => {
 			this.letter.setTexture(Textures.Letter3);
+			if (this.dialogAudio?.isPlaying) {
+				this.dialogAudio.stop();
+				this.dialogAudio.destroy();
+			}
+
+			this.dialogAudio = this.sound.add("letter") as Phaser.Sound.WebAudioSound;
+			this.dialogAudio.play();
 		});
 		this.time.delayedCall(8000, () => {
 			this.nextButton.setInteractive();

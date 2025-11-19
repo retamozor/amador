@@ -55,6 +55,11 @@ class Preloader extends Scene {
 		this.load.audio("bg-loop", "sound/bg-loop.mp3")
 		this.load.audio("on-board-bus", "sound/on_board_bus.mp3")
 		this.load.audio("ambient", "sound/ambient.mp3")
+		this.load.audio("dialog_0", "sound/dialog_0.mp3")
+		this.load.audio("dialog_1", "sound/dialog_1.mp3")
+		this.load.audio("dialog_2", "sound/dialog_2.mp3")
+		this.load.audio("dialog_3", "sound/dialog_3.mp3")
+		this.load.audio("letter", "sound/letter.mp3")
 		
 		this.load.spritesheet(Textures.Sprites.Player, "sprites/amador_sprites.png", {
 			frameWidth: 32
